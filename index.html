@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HUMAN LIST ANALYZER</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<header>
+    <h1>Human List Analyzer</h1>
+    <p>人名リストを分析します</p>
+</header>
+
+<article>
+    <section>
+        <h1>Set human list</h1>
+        <form name="humanListForm">
+                <textarea rows="20" cols="20" name="humanList" placeholder="水樹奈々
+田村ゆかり
+悠木碧
+堀江由衣
+植田佳奈
+中原麻衣
+阿澄佳奈
+田所あずさ
+諸星すみれ
+小倉唯
+大橋彩香
+竹達彩奈
+伊藤静
+斎藤千和
+後藤邑子
+柚木涼香
+能登麻美子
+水橋かおり
+沢城みゆき
+下地紫野
+佐倉綾音
+水瀬いのり
+日高里菜
+佐藤聡美
+早見沙織
+寿美菜子
+上坂すみれ
+安野希世乃
+清水香里
+生天目仁美"></textarea>
+            <input type="button" value="Show results" onclick="AnalyzeHumanList();">
+        </form>
+    </section>
+    <section>
+        <h1>Result</h1>
+        <h2>Ages</h2>
+        <canvas id="ageChart"></canvas>
+    </section>
+</article>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"-->
+        <!--integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>-->
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+
+<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+<script>
+    window.ga = function () {
+        ga.q.push(arguments)
+    };
+    ga.q = [];
+    ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto');
+    ga('send', 'pageview')
+</script>
+<script src="js/main.js"></script>
+
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+</body>
+</html>

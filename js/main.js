@@ -9,7 +9,7 @@ var NODATA_STR = 'NoData',
     getWikiContents = function (title) {
         console.log('getWikiContents');
         var datatype = 'json',
-            url = 'http://ja.wikipedia.org/w/api.php?format=' + datatype + '&action=query&prop=revisions&rvprop=content&titles=' + title;
+            url = 'https://ja.wikipedia.org/w/api.php?format=' + datatype + '&action=query&prop=revisions&rvprop=content&titles=' + title;
         return $.ajax({
             type: "get",
             dataType: 'jsonp',

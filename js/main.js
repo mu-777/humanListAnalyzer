@@ -65,6 +65,8 @@ function AnalyzeHumanList() {
         result = document.getElementById("result"),
         humanList = form.humanList.value.split('\n').filter(function (val) {
             return val != '';
+        }).map(function (val) {
+            return val.replace(/\s+/g, "");
         });
 
     if (humanList.length === 0) {
@@ -79,8 +81,8 @@ function AnalyzeHumanList() {
     $.when.apply($, humanList.map(function (name, idx, arr) {
         return getWikiContents(name);
     })).then(function () {
-        var wikiContentsList = Array.prototype.slice.call(arguments, 0).map(function (res, idx, arr) {
-                return wikiResponse2Contents(res[0]);
+        var wikiContentsList = Array.prototype.slice.call(humanList.length > 1 ? arguments : [arguments[0]], 0).map(function (res, idx, arr) {
+                return wikiResponse2Contents(res);
             }),
             ageList = wikiContentsList.map(function (contents, idx, arr) {
                 return wikiContents2age(contents)

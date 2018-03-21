@@ -62,7 +62,9 @@ var agesLineChart = function (names, ages) {
 
 function AnalyzeHumanList() {
     console.log('AnalyzeHumanList');
-    charts = [];
+    charts.forEach(function (chart) {
+        chart.destroy();
+    });
     var form = document.forms.namedItem('humanListForm'),
         result = document.getElementById("result"),
         humanList = form.humanList.value.split('\n').filter(function (val) {

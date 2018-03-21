@@ -62,9 +62,12 @@ var agesLineChart = function (names, ages) {
 
 function AnalyzeHumanList() {
     console.log('AnalyzeHumanList');
+    document.getElementById("results").style.display = "none";
+    document.getElementById("loader").style.display = "block";
     charts.forEach(function (chart) {
         chart.destroy();
     });
+
     var form = document.forms.namedItem('humanListForm'),
         result = document.getElementById("result"),
         humanList = form.humanList.value.split('\n').filter(function (val) {
@@ -94,6 +97,8 @@ function AnalyzeHumanList() {
                 return isNaN(age) ? NODATA_STR : age;
             });
         charts.push(agesLineChart(humanList, ageList));
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("results").style.display = "block";
     }, function (err) {
         console.log(err)
     });

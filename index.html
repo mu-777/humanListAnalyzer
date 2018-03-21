@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>HUMAN LIST ANALYZER</title>
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/my.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="css/normalize.css">-->
+    <!--<link rel="stylesheet" href="css/main.css">-->
 </head>
 <body>
 <header>
@@ -49,10 +52,14 @@
             <input type="button" value="Show results" onclick="AnalyzeHumanList();">
         </form>
     </section>
+
     <section>
         <h1>Result</h1>
-        <h2>Ages</h2>
-        <canvas id="ageChart"></canvas>
+        <div id="loader" style="display: none;"></div>
+        <div id="results" style="display: none;" class="animate-bottom">
+            <h2>Ages</h2>
+            <canvas id="ageChart"></canvas>
+        </div>
     </section>
 </article>
 
@@ -60,7 +67,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"-->
-        <!--integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>-->
+<!--integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>-->
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
 
 <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->

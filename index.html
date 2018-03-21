@@ -9,17 +9,20 @@
     <!--<link rel="stylesheet" href="css/normalize.css">-->
     <!--<link rel="stylesheet" href="css/main.css">-->
 </head>
-<body>
-<header>
-    <h1>Human List Analyzer</h1>
-    <p>人名リストを分析します</p>
-</header>
+<body class="bg-light">
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Human List Analyzer</h1>
+        <p class="lead text-muted">人名リストを分析します</p>
+    </div>
+</section>
 
-<article>
-    <section>
-        <h1>Set human list</h1>
-        <form name="humanListForm">
-                <textarea rows="20" cols="20" name="humanList" placeholder="水樹奈々
+<section class="container">
+    <h2>Set Data</h2>
+    <form name="humanListForm">
+        <div class="form-group">
+            <label>Input human list to analyze (No input for sample data)</label>
+            <textarea rows="10" class="form-control" name="humanList" placeholder="水樹奈々
 田村ゆかり
 悠木碧
 堀江由衣
@@ -49,19 +52,20 @@
 安野希世乃
 清水香里
 生天目仁美"></textarea>
-            <input type="button" value="Show results" onclick="AnalyzeHumanList();">
-        </form>
-    </section>
-
-    <section>
-        <h1>Result</h1>
-        <div id="loader" style="display: none;"></div>
-        <div id="results" style="display: none;" class="animate-bottom">
-            <h2>Ages</h2>
-            <canvas id="ageChart"></canvas>
         </div>
-    </section>
-</article>
+        <input type="button" value="Show results" class="btn btn-primary btn-lg"
+               onclick="AnalyzeHumanList();">
+    </form>
+
+<hr class="mb-4">
+
+    <h2>See Results</h2>
+    <div id="loader" style="display: none;"></div>
+    <div id="results" style="display: none;" class="animate-bottom">
+        <h3>Ages</h3>
+        <canvas id="ageChart"></canvas>
+    </div>
+</section>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>

@@ -53,7 +53,7 @@ var agesLineChart = function (names, ages) {
         },
         options: {
             responsive: true,
-            title: {display: true, text: 'Ages'},
+            title: {display: false, text: 'Ages'},
             scales: {yAxes: [{ticks: {min: 0}}]}
         }
     });

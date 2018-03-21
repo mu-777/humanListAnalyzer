@@ -24,12 +24,14 @@
     </div>
 </section>
 
-<section class="container col-md-10">
-    <h2>Set Data</h2>
-    <form name="humanListForm">
-        <div class="form-group">
-            <label>Input human list to analyze (No input for sample data)</label>
-            <textarea rows="10" class="form-control" name="humanList" placeholder="水樹奈々
+<section class="container">
+    <div class="row">
+        <div class="col-sm-10">
+            <h2>Set Data</h2>
+            <form name="humanListForm">
+                <div class="form-group">
+                    <label>Input human list to analyze (No input for sample data)</label>
+                    <textarea rows="10" class="form-control" name="humanList" placeholder="水樹奈々
 田村ゆかり
 悠木碧
 堀江由衣
@@ -59,18 +61,21 @@
 安野希世乃
 清水香里
 生天目仁美"></textarea>
+                </div>
+                <input type="button" value="Show results" class="btn btn-primary btn-lg"
+                       onclick="AnalyzeHumanList();">
+            </form>
+
+            <hr class="mb-4">
+
+            <h2>See Results</h2>
+            <div id="loader" style="display: none;"></div>
+            <div id="results" style="display: none;" class="animate-bottom">
+                <h3>Ages</h3>
+                <canvas id="ageChart"></canvas>
+            </div>
+
         </div>
-        <input type="button" value="Show results" class="btn btn-primary btn-lg"
-               onclick="AnalyzeHumanList();">
-    </form>
-
-    <hr class="mb-4">
-
-    <h2>See Results</h2>
-    <div id="loader" style="display: none;"></div>
-    <div id="results" style="display: none;" class="animate-bottom">
-        <h3>Ages</h3>
-        <canvas id="ageChart"></canvas>
     </div>
 </section>
 

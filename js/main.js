@@ -6,6 +6,7 @@
 
 var NODATA_STR = 'NoData',
     NOTFOUND_STR = 'NotFound',
+    charts = [],
     getWikiContents = function (title) {
         console.log('getWikiContents');
         var datatype = 'json',
@@ -37,7 +38,7 @@ var NODATA_STR = 'NoData',
     };
 
 var agesLineChart = function (names, ages) {
-    new Chart(document.getElementById("ageChart"), {
+    return new Chart(document.getElementById("ageChart"), {
         type: "bar",
         data: {
             labels: names,
@@ -61,6 +62,7 @@ var agesLineChart = function (names, ages) {
 
 function AnalyzeHumanList() {
     console.log('AnalyzeHumanList');
+    charts = [];
     var form = document.forms.namedItem('humanListForm'),
         result = document.getElementById("result"),
         humanList = form.humanList.value.split('\n').filter(function (val) {
@@ -81,15 +83,15 @@ function AnalyzeHumanList() {
     $.when.apply($, humanList.map(function (name, idx, arr) {
         return getWikiContents(name);
     })).then(function () {
-        var wikiContentsList = Array.prototype.slice.call(humanList.length > 1 ? arguments : [arguments[0]], 0).map(function (res, idx, arr) {
-                return wikiResponse2Contents(res);
+        var wikiContentsList = Array.prototype.slice.call(humanList.length > 1 ? arguments : [[arguments[0]]], 0).map(function (res, idx, arr) {
+                return wikiResponse2Contents(res[0]);
             }),
             ageList = wikiContentsList.map(function (contents, idx, arr) {
                 return wikiContents2age(contents)
             }).map(function (age, idx, arr) {
                 return isNaN(age) ? NODATA_STR : age;
             });
-        agesLineChart(humanList, ageList);
+        charts.push(agesLineChart(humanList, ageList));
     }, function (err) {
         console.log(err)
     });

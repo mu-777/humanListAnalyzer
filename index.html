@@ -59,9 +59,10 @@
             <hr class="mb-4">
 
             <h2>See Results</h2>
-            <div id="loader" style="display: none;"></div>
-            <div id="results" style="display: none;" class="animate-bottom">
-                <h3 class="text-center">Ages</h3>
+            <h3>Stats</h3>
+            <div id="age-loader" class="loader" style="display: none;"></div>
+            <div id="age-result" class="result animate-bottom" style="display: none;">
+                <h4 class="text-center">Ages</h4>
                 <canvas id="ageChart"></canvas>
             </div>
 
@@ -86,6 +87,8 @@
     ga('create', 'UA-XXXXX-Y', 'auto');
     ga('send', 'pageview')
 </script>
+<script src="js/mycharts.js"></script>
+<script src="js/wikiParser.js"></script>
 <script src="js/main.js"></script>
 
 <script src="https://www.google-analytics.com/analytics.js" async defer></script>

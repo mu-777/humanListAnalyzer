@@ -6,16 +6,20 @@
 
 var charts = [],
     resultElements = $('.result'),
-    lorderElements =$('.loader'),
+    lorderElements = $('.loader'),
     turnOnResult = function (name) {
-        $('#'+name+'-loader').css({'display': 'none'});
-        $('#'+name+'-result').css({'display': "block"});
+        $('#' + name + '-loader').css({'display': 'none'});
+        $('#' + name + '-result').css({'display': "block"});
     };
 
 function AnalyzeHumanList() {
     console.log('AnalyzeHumanList');
-    [].forEach.call(resultElements, function (el) {el.style.display= 'none';});
-    [].forEach.call(lorderElements, function (el) {el.style.display= 'block';});
+    [].forEach.call(resultElements, function (el) {
+        el.style.display = 'none';
+    });
+    [].forEach.call(lorderElements, function (el) {
+        el.style.display = 'block';
+    });
 
     charts.forEach(function (chart) {
         chart.destroy();
@@ -45,10 +49,11 @@ function AnalyzeHumanList() {
                 return wikiContents2age(contents)
             }).map(function (age, idx, arr) {
                 return isNaN(age) ? NODATA_STR : age;
-            });
-        charts.push(agesLineChart(humanList, ageList));
+            }),
+            sexList = wikiContentsList.map(wikiContents2sex),
+            tallList = wikiContentsList.map(wikiContents2tall);
+        charts.push(agesBarChart(humanList, ageList));
         turnOnResult('age');
-
     }, function (err) {
         console.log(err)
     });

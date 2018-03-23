@@ -42,7 +42,7 @@ var showAveragePlugin = {
             });
         }
     },
-    agesLineChart = function (names, ages) {
+    agesBarChart = function (names, ages) {
         return new Chart($('#ageChart'), {
             type: "bar",
             data: {

@@ -59,11 +59,16 @@
             <hr class="mb-4">
 
             <h2>See Results</h2>
-            <h3>Stats</h3>
             <div id="age-loader" class="loader" style="display: none;"></div>
             <div id="age-result" class="result animate-bottom" style="display: none;">
-                <h4 class="text-center">Ages</h4>
+                <h3 class="text-center">Ages</h3>
                 <canvas id="ageChart"></canvas>
+            </div>
+
+            <div id="tall-loader" class="loader" style="display: none;"></div>
+            <div id="tall-result" class="result animate-bottom" style="display: none;">
+                <h3 class="text-center">Height</h3>
+                <canvas id="tallChart"></canvas>
             </div>
 
         </div>
@@ -87,6 +92,7 @@
     ga('create', 'UA-XXXXX-Y', 'auto');
     ga('send', 'pageview')
 </script>
+<script src="js/mycommon.js"></script>
 <script src="js/mycharts.js"></script>
 <script src="js/wikiParser.js"></script>
 <script src="js/main.js"></script>

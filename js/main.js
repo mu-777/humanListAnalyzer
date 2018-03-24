@@ -45,15 +45,16 @@ function AnalyzeHumanList() {
         var wikiContentsList = Array.prototype.slice.call(humanList.length > 1 ? arguments : [[arguments[0]]], 0).map(function (res, idx, arr) {
                 return wikiResponse2Contents(res[0]);
             }),
-            ageList = wikiContentsList.map(function (contents, idx, arr) {
-                return wikiContents2age(contents)
-            }).map(function (age, idx, arr) {
+            ageList = wikiContentsList.map(wikiContents2age).map(function (age) {
                 return isNaN(age) ? NODATA_STR : age;
             }),
             sexList = wikiContentsList.map(wikiContents2sex),
-            tallList = wikiContentsList.map(wikiContents2tall);
-        charts.push(agesBarChart(humanList, ageList));
+            tallList = wikiContentsList.map(wikiContents2tall),
+            bloodtypeList = wikiContentsList.map(wikiContents2bloodtype);
+        charts.push(agesBarChart(humanList, ageList, sexList));
         turnOnResult('age');
+        charts.push(tallsBarChart(humanList, tallList, sexList));
+        turnOnResult('tall');
     }, function (err) {
         console.log(err)
     });

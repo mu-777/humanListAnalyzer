@@ -6,9 +6,7 @@
 
 "use strict";
 
-var NODATA_STR = 'NoData',
-    NOTFOUND_STR = 'NotFound',
-    parseContents = function (contents, keystr, vallength) {
+var parseContents = function (contents, keystr, vallength) {
         return contents.substr(contents.indexOf(keystr) + keystr.length, vallength);
     },
     getWikiContents = function (title) {
@@ -40,8 +38,10 @@ var NODATA_STR = 'NoData',
     wikiContents2tall = function (contents) {
         return Number(parseContents(contents, '身長 = ', 3));
     },
-    // return 1: men, 2: women, 3: others
     wikiContents2sex = function (contents) {
         var sex = parseContents(contents, '性別 = ', 6);
-        return sex == '[[男性]]' ? 1 : sex == '[[女性]]' ? 2 : 3;
+        return sex == '[[男性]]' ? MAN : sex == '[[女性]]' ? WOMAN : LGBT;
+    },
+    wikiContents2bloodtype = function (contents) {
+        return parseContents(contents, '血液型 = [[ABO式血液型|', 2).match('[A-Z]+');
     };

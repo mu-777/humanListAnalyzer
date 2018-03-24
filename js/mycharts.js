@@ -4,7 +4,24 @@
 
 'use strict';
 
-var showAveragePlugin = {
+var showStrPlugin = {
+        afterRender: function (chart, options) {
+            var ctx = chart.chart.ctx;
+            ctx.font = Chart.helpers.fontString(20, 'normal', 'default');
+            ctx.textAlign = "center";
+            ctx.textBaseline = "bottom";
+            chart.config.data.datasets.forEach(function (dataset, i) {
+                chart.getDatasetMeta(i).data.forEach(function (metadata, j) {
+                    var data = dataset.data[j],
+                        position = metadata.tooltipPosition();
+                    if (!isNaN(data)) return;
+                    ctx.fillStyle = $.isArray(dataset.borderColor) ? dataset.borderColor[j] : dataset.borderColor;
+                    ctx.fillText(data, position.x, (position.y || metadata._yScale.bottom ) - 5);
+                });
+            });
+        }
+    },
+    showAveragePlugin = {
         afterDatasetsUpdate: function (chart, options) {
             var averages = chart.config.data.datasets.map(function (dataset, idx, arr) {
                 var filtered = dataset.data.filter(function (val) {
@@ -21,28 +38,27 @@ var showAveragePlugin = {
             if (!chart.config.options.averages) {
                 return;
             }
-            var ctxPlugin = chart.chart.ctx,
-                datasets = chart.config.data.datasets,
+            var ctx = chart.chart.ctx,
                 xAxe = chart.scales[chart.config.options.scales.xAxes[0].id],
                 yAxe = chart.scales[chart.config.options.scales.yAxes[0].id];
 
             chart.config.options.averages.forEach(function (average, idx, arr) {
                 var averagePx = yAxe.getPixelForValue(average);
-                ctxPlugin.strokeStyle = datasets[idx].borderColor;
-                ctxPlugin.beginPath();
-                ctxPlugin.moveTo(xAxe.left, averagePx);
-                ctxPlugin.lineTo(xAxe.right, averagePx);
-                ctxPlugin.stroke();
+                ctx.strokeStyle = basicColor();
+                ctx.beginPath();
+                ctx.moveTo(xAxe.left, averagePx);
+                ctx.lineTo(xAxe.right, averagePx);
+                ctx.stroke();
 
-                ctxPlugin.fillStyle = datasets[idx].borderColor;
-                ctxPlugin.font = Chart.helpers.fontString(20, 'normal', 'default');
-                ctxPlugin.textAlign = 'right';
-                ctxPlugin.textBaseline = 'bottom';
-                ctxPlugin.fillText('Average: ' + average.toFixed(2), xAxe.right - 2, averagePx - 5);
+                ctx.fillStyle = basicColor();
+                ctx.font = Chart.helpers.fontString(20, 'normal', 'default');
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'bottom';
+                ctx.fillText('Average: ' + average.toFixed(2), xAxe.right - 2, averagePx - 5);
             });
         }
     },
-    agesBarChart = function (names, ages) {
+    agesBarChart = function (names, ages, sexes) {
         return new Chart($('#ageChart'), {
             type: "bar",
             data: {
@@ -50,8 +66,12 @@ var showAveragePlugin = {
                 datasets: [{
                     label: 'Age',
                     data: ages,
-                    backgroundColor: "rgba(255, 99, 132, 0.5)",
-                    borderColor: "rgba(255, 99, 132, 1.0)",
+                    backgroundColor: sexes.map(function (sex) {
+                        return getColorFromSex(sex, 0.6);
+                    }),
+                    borderColor: sexes.map(function (sex) {
+                        return getColorFromSex(sex);
+                    }),
                     borderWidth: 1
                 }]
             },
@@ -62,6 +82,33 @@ var showAveragePlugin = {
                 scaleLabel: {display: false},
                 scales: {yAxes: [{ticks: {beginAtZero: true}}]}
             },
-            plugins: [showAveragePlugin]
+            plugins: [showAveragePlugin, showStrPlugin]
+        });
+    },
+    tallsBarChart = function (names, talls, sexes) {
+        return new Chart($('#tallChart'), {
+            type: "bar",
+            data: {
+                labels: names,
+                datasets: [{
+                    label: 'Tall',
+                    data: talls,
+                    backgroundColor: sexes.map(function (sex) {
+                        return getColorFromSex(sex, 0.001);
+                    }),
+                    borderColor: sexes.map(function (sex) {
+                        return getColorFromSex(sex, 0.001);
+                    }),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {display: false, text: 'Talls'},
+                legend: {display: false},
+                scaleLabel: {display: false},
+                scales: {yAxes: [{ticks: {beginAtZero: true}}]}
+            },
+            plugins: [showAveragePlugin, showStrPlugin]
         });
     };

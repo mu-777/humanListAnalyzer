@@ -55,6 +55,8 @@ function AnalyzeHumanList() {
         turnOnResult('age');
         charts.push(heightsBarChart(humanList, heightList, sexList));
         turnOnResult('height');
+        charts.push(bloodtypePieChart(humanList, bloodtypeList));
+        turnOnResult('bloodtype');
     }, function (err) {
         console.log(err)
     });

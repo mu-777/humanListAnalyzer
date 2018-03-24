@@ -42,5 +42,5 @@ var parseContents = function (contents, keystr, vallength) {
         return sex == '[[男性]]' ? MAN : sex == '[[女性]]' ? WOMAN : LGBT;
     },
     wikiContents2bloodtype = function (contents) {
-        return parseContents(contents, '血液型 = [[ABO式血液型|', 2).match('[A-Z]+');
+        return parseContents(contents, '[[ABO式血液型|', 2).match('[A-Z]+');
     };

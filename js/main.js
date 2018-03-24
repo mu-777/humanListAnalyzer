@@ -49,12 +49,12 @@ function AnalyzeHumanList() {
                 return isNaN(age) ? NODATA_STR : age;
             }),
             sexList = wikiContentsList.map(wikiContents2sex),
-            tallList = wikiContentsList.map(wikiContents2tall),
+            heightList = wikiContentsList.map(wikiContents2height),
             bloodtypeList = wikiContentsList.map(wikiContents2bloodtype);
         charts.push(agesBarChart(humanList, ageList, sexList));
         turnOnResult('age');
-        charts.push(tallsBarChart(humanList, tallList, sexList));
-        turnOnResult('tall');
+        charts.push(heightsBarChart(humanList, heightList, sexList));
+        turnOnResult('height');
     }, function (err) {
         console.log(err)
     });

@@ -11,8 +11,7 @@ var parseContents = function (contents, keystr, vallength) {
     },
     getWikiContents = function (title) {
         console.log('getWikiContents');
-        var datatype = 'json',
-            url = 'https://ja.wikipedia.org/w/api.php?format=' + datatype + '&action=query&prop=revisions&rvprop=content&titles=' + title;
+        var url = 'https://ja.wikipedia.org/w/api.php?format=json&action=query&prop=revisions&rvprop=content&titles=' + title;
         return $.ajax({
             type: "get",
             dataType: 'jsonp',
@@ -35,8 +34,8 @@ var parseContents = function (contents, keystr, vallength) {
         };
         return (Math.floor((date2int(new Date()) - date2int(wikiContents2birthday(contents))) / 10000))
     },
-    wikiContents2tall = function (contents) {
-        return Number(parseContents(contents, '身長 = ', 3));
+    wikiContents2height = function (contents) {
+        return Number(parseContents(contents, '身長 =', 4));
     },
     wikiContents2sex = function (contents) {
         var sex = parseContents(contents, '性別 = ', 6);

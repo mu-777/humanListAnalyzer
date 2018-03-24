@@ -23,5 +23,11 @@ var NODATA_STR = 'NoData',
     },
     getColorFromSex = function (sex, a) {
         return sex == MAN ? manColor(a) : sex == WOMAN ? womanColor(a) : basicColor(a);
-    };
+    },
+    MANIMG = new Image(),
+    WOMANIMG = new Image(),
+    LGBTIMG = new Image();
 
+MANIMG.src = 'img/man.png';
+WOMANIMG.src = 'img/woman.png';
+LGBTIMG.src = 'img/lgbt.png';

@@ -14,7 +14,9 @@ var showStrPlugin = {
                 chart.getDatasetMeta(i).data.forEach(function (metadata, j) {
                     var data = dataset.data[j],
                         position = metadata.tooltipPosition();
-                    if (!isNaN(data)) return;
+                    if (!isNaN(data)) {
+                        return;
+                    }
                     ctx.fillStyle = $.isArray(dataset.borderColor) ? dataset.borderColor[j] : dataset.borderColor;
                     ctx.fillText(data, position.x, (position.y || metadata._yScale.bottom ) - 5);
                 });
@@ -85,26 +87,26 @@ var showStrPlugin = {
             plugins: [showAveragePlugin, showStrPlugin]
         });
     },
-    tallsBarChart = function (names, talls, sexes) {
-        return new Chart($('#tallChart'), {
+    heightsBarChart = function (names, heights, sexes) {
+        return new Chart($('#heightChart'), {
             type: "bar",
             data: {
                 labels: names,
                 datasets: [{
-                    label: 'Tall',
-                    data: talls,
+                    label: 'Heights',
+                    data: heights,
                     backgroundColor: sexes.map(function (sex) {
-                        return getColorFromSex(sex, 0.001);
+                        return getColorFromSex(sex, 0.6);
                     }),
                     borderColor: sexes.map(function (sex) {
-                        return getColorFromSex(sex, 0.001);
+                        return getColorFromSex(sex);
                     }),
                     borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
-                title: {display: false, text: 'Talls'},
+                title: {display: false, text: 'Heights'},
                 legend: {display: false},
                 scaleLabel: {display: false},
                 scales: {yAxes: [{ticks: {beginAtZero: true}}]}

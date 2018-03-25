@@ -127,7 +127,7 @@ var showStrPlugin = {
         });
     },
     bloodtypePieChart = function (names, bloodtypes) {
-        var BTKeys = ['A', 'B', 'O', 'AB', 'NoData'],
+        var BTKeys = ['A', 'B', 'O', 'AB', NODATA_STR],
             bloodtypeMap = {};
         BTKeys.forEach(function (key) {
             bloodtypeMap[key] = [];
@@ -136,7 +136,7 @@ var showStrPlugin = {
             if (BTKeys.indexOf(bt)) {
                 bloodtypeMap[bt].push(names[idx]);
             } else {
-                bloodtypeMap['others'].push(names[idx]);
+                bloodtypeMap[NODATA_STR].push(names[idx]);
             }
         });
         return new Chart($('#bloodtypeChart'), {

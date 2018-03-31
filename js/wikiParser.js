@@ -11,7 +11,7 @@ var parseContents = function (contents, keystr, vallength) {
     },
     getWikiContents = function (title) {
         console.log('getWikiContents');
-        var url = 'https://ja.wikipedia.org/w/api.php?format=json&action=query&prop=revisions&rvprop=content&titles=' + title;
+        var url = 'https://ja.wikipedia.org/w/api.php?format=json&action=query&prop=revisions&rvprop=content&rvparse&titles=' + title;
         return $.ajax({
             type: "get",
             dataType: 'jsonp',
@@ -21,12 +21,13 @@ var parseContents = function (contents, keystr, vallength) {
         });
     },
     wikiResponse2Contents = function (res) {
-        return res.hasOwnProperty('query') ? res['query']['pages'][Object.keys(res['query']['pages'])[0]]['revisions'][0]['*'] : null;
+        var contentstxt = res.hasOwnProperty('query') ? res['query']['pages'][Object.keys(res['query']['pages'])[0]]['revisions'][0]['*'] : null;
+        return contentstxt != null ? $($.parseHTML(contentstxt))[0] : null;
     },
     wikiContents2birthday = function (contents) {
-        return new Date(Number(parseContents(contents, '生年 = ', 5)),
-            Number(parseContents(contents, '生月 = ', 2)) - 1,
-            Number(parseContents(contents, '生日 = ', 2)));
+        var bdaystr = contents.getElementsByClassName('bday')[0],
+            bdaylst = bdaystr === undefined ? [NaN, NaN, NaN] : bdaystr.textContent.split('-');
+        return new Date(Number(bdaylst[0]), Number(bdaylst[1]), Number(bdaylst[2]));
     },
     wikiContents2age = function (contents) {
         var date2int = function (date) {

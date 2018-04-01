@@ -52,4 +52,13 @@ var parseContents = function (contents, keystr, vallength) {
             return $(this).text() === '血液型';
         }).parent().find('td').text();
         return txt.match('[A-Z]+') || NODATA_STR;
+    },
+    wikiContents2plaintxt = function (contents) {
+        var txt = $(contents).find('p', 'p a').text() + '\n' + $(contents).find('ul li', 'ul li a').text();
+        // var txt = $(contents).find('p', 'p a', 'ul li', 'ul li a').text();
+        return txt.split('\n').filter(function (str, idx, arr) {
+            return str.search('[0-9]+.') !== 0;
+        }).map(function (str, idx, arr) {
+            return str.replace(/\[[0-9]+\]/g, '');
+        }).join('\n');
     };

@@ -53,10 +53,16 @@ function AnalyzeHumanList() {
             bloodtypeList = wikiContentsList.map(wikiContents2bloodtype);
         charts.push(agesBarChart(humanList, ageList, sexList));
         turnOnResult('age');
+
         charts.push(heightsBarChart(humanList, heightList, sexList));
         turnOnResult('height');
+
         charts.push(bloodtypePieChart(humanList, bloodtypeList));
         turnOnResult('bloodtype');
+
+        var plaintxtList = wikiContentsList.map(wikiContents2plaintxt);
+        console.log('a');
+
     }, function (err) {
         console.log(err)
     });

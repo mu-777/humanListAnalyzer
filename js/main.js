@@ -48,8 +48,8 @@ function AnalyzeHumanList() {
             ageList = wikiContentsList.map(wikiContents2age).map(function (age) {
                 return isNaN(age) ? NODATA_STR : age;
             }),
-            sexList = wikiContentsList.map(wikiContents2sex),
             heightList = wikiContentsList.map(wikiContents2height),
+            sexList = wikiContentsList.map(wikiContents2sex),
             bloodtypeList = wikiContentsList.map(wikiContents2bloodtype);
         charts.push(agesBarChart(humanList, ageList, sexList));
         turnOnResult('age');

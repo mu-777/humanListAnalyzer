@@ -25,8 +25,8 @@ var parseContents = function (contents, keystr, vallength) {
         return contentstxt != null ? $($.parseHTML(contentstxt))[0] : null;
     },
     wikiContents2birthday = function (contents) {
-        var bdaystr = contents.getElementsByClassName('bday')[0],
-            bdaylst = bdaystr === undefined ? [NaN, NaN, NaN] : bdaystr.textContent.split('-');
+        var bdaystr = $(contents).find('.bday').text(),
+            bdaylst = bdaystr === "" ? [NaN, NaN, NaN] : bdaystr.split('-');
         return new Date(Number(bdaylst[0]), Number(bdaylst[1]), Number(bdaylst[2]));
     },
     wikiContents2age = function (contents) {
@@ -36,12 +36,20 @@ var parseContents = function (contents, keystr, vallength) {
         return (Math.floor((date2int(new Date()) - date2int(wikiContents2birthday(contents))) / 10000))
     },
     wikiContents2height = function (contents) {
-        return Number(parseContents(contents, '身長 =', 4));
+        var txt = $(contents).find('.infobox tr th').filter(function (idx) {
+            return $(this).text() === '身長';
+        }).parent().find('td').text();
+        return txt === '' ? NODATA_STR : Number(txt.substr(0, txt.indexOf('cm')));
     },
     wikiContents2sex = function (contents) {
-        var sex = parseContents(contents, '性別 = ', 6);
-        return sex == '[[男性]]' ? MAN : sex == '[[女性]]' ? WOMAN : LGBT;
+        var txt = $(contents).find('.infobox tr th').filter(function (idx) {
+            return $(this).text() === '性別';
+        }).parent().find('td').text();
+        return txt.match('男性') ? MAN : txt.match('女性') ? WOMAN : LGBT;
     },
     wikiContents2bloodtype = function (contents) {
-        return parseContents(contents, '[[ABO式血液型|', 3).match('[A-Z]+') || NODATA_STR;
+        var txt = $(contents).find('.infobox tr th').filter(function (idx) {
+            return $(this).text() === '血液型';
+        }).parent().find('td').text();
+        return txt.match('[A-Z]+') || NODATA_STR;
     };

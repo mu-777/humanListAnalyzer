@@ -1,6 +1,6 @@
 [submodule "kuromoji"]
 	path = kuromoji
 	url = https://github.com/takuyaa/kuromoji.js.git
-[submodule "mecab-ipadic-neologd"]
-	path = mecab-ipadic-neologd
-	url = https://github.com/neologd/mecab-ipadic-neologd.git
+[submodule "kuromoji-js-dictionary"]
+	path = kuromoji-js-dictionary
+	url = https://github.com/frontainer/kuromoji-js-dictionary.git

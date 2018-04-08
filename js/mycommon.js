@@ -26,7 +26,19 @@ var NODATA_STR = 'NoData',
     },
     MANIMG = new Image(),
     WOMANIMG = new Image(),
-    LGBTIMG = new Image();
+    LGBTIMG = new Image(),
+    CHARTJS = 'chartjs',
+    ZINGCHART = 'zingchart',
+    destroyChartjs = function (chart) {
+        chart.destroy();
+    },
+    destroyZingchart = function (id) {
+        zingchart.exec(id, 'destroy');
+    },
+    destroyChart = {};
+
+destroyChart[CHARTJS] = destroyChartjs;
+destroyChart[ZINGCHART] = destroyZingchart;
 
 MANIMG.src = 'img/man.png';
 WOMANIMG.src = 'img/woman.png';

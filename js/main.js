@@ -20,9 +20,9 @@ function AnalyzeHumanList() {
     [].forEach.call(lorderElements, function (el) {
         el.style.display = 'block';
     });
-
-    charts.forEach(function (chart) {
-        chart.destroy();
+    charts.forEach(function (chartinfo) {
+        var t =destroyChart[chartinfo['kind']];
+        destroyChart[chartinfo['kind']](chartinfo['data'])
     });
 
     var form = document.forms.namedItem('humanListForm'),
@@ -52,6 +52,7 @@ function AnalyzeHumanList() {
             heightList = wikiContentsList.map(wikiContents2height),
             sexList = wikiContentsList.map(wikiContents2sex),
             bloodtypeList = wikiContentsList.map(wikiContents2bloodtype);
+
         charts.push(agesBarChart(humanList, ageList, sexList));
         turnOnResult('age');
 
@@ -63,70 +64,11 @@ function AnalyzeHumanList() {
 
         $.when(kuromojiBuilderDeferred).then(function (tokenizer) {
             var plaintxtList = wikiContentsList.map(wikiContents2plaintxt),
-                analyzedtxtsList = plaintxtList.map(function (plaintxt, idx, arr) {
-                    return tokenizer.tokenize(plaintxt);
-                }),
-                filteredNoumsList = analyzedtxtsList.map(function (analyzedatxts, idx, arr) {
-                    return analyzedatxts.filter(function (analyzedtxt) {
-                        return analyzedtxt['pos'] === '名詞';
-                    }).map(function (noumtxt) {
-                        return noumtxt['surface_form'];
-                    }).filter(function (noumstr) {
-                        return noumstr.length > 1 && noumstr.match('[0-9!"$%&\\\'()\\*\\+\\-\\.,\\/:;<=>?@\\[\\\\\\]^_`{|}~]+$') == null;
-                    });
-                }),
-                filteredUniqueNoumsList = filteredNoumsList.map(function (filteredNoums) {
-                    return Array.from(new Set(filteredNoums));
-                }),
-                freqPerHuman = filteredUniqueNoumsList.splice(1, filteredUniqueNoumsList.length - 1).reduce(function (prev, curr, idx) {
-                    return prev.map(function (dict) {
-                        var noum = Object.keys(dict)[0],
-                            curridx = curr.indexOf(noum);
-                        if (curridx >= 0) {
-                            dict[noum].push(humanList[idx + 1]);
-                            curr.splice(curridx, 1);
-                        }
-                        return dict;
-                    }).concat(curr.map(function (noum) {
-                        var d = {};
-                        d[noum] = [humanList[idx + 1]];
-                        return d;
-                    }));
-                }, filteredUniqueNoumsList[0].map(function (noum) {
-                    var d = {};
-                    d[noum] = [humanList[0]];
-                    return d;
-                })),
-                wordcloudData = {
-                    "graphset": [{
-                        "type": "wordcloud",
-                        "options": {
-                            "style": {
-                                "tooltip": {
-                                    visible: true,
-                                    text: '%text: %hits'
-                                }
-                            },
-                            'words': freqPerHuman.filter(function (freqdict) {
-                                return freqdict[Object.keys(freqdict)[0]].length > 1;
-                            }).map(function (freqdict) {
-                                var key = Object.keys(freqdict)[0];
-                                return {
-                                    'text': key,
-                                    'count': freqdict[key].length
-                                }
-                            })
-                        }
-                    }]
-                };
+                analyzedtxtsList = plaintxtList.map(txtAnalyzerFactory(tokenizer)),
+                filteredNoumsList = analyzedtxtsList.map(noumFilter),
+                filteredUniqueNoumsList = filteredNoumsList.map(makeListUnique);
+            charts.push(wordcloudChart(humanList, filteredUniqueNoumsList));
             turnOnResult('wordcloud');
-            zingchart.render({
-                id: 'wordcloudChart',
-                data: wordcloudData,
-                height: 500,
-                width: '100%'
-            });
-
         }, function (err) {
             console.log(err);
         });

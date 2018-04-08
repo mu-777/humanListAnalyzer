@@ -68,8 +68,10 @@ var kuromojiBuilderDeferred = $.Deferred(),
         };
     };
 
-kuromoji.builder({dicPath: "kuromoji/dict"}).build(function (err, tokenizer) {
+// kuromoji.builder({dicPath: "kuromoji/dict"}).build(function (err, tokenizer) {
 // kuromoji.builder({dicPath: "kuromoji-js-dictionary/dist"}).build(function (err, tokenizer) {
+kuromoji.builder({dicPath: "dist"}).build(function (err, tokenizer) {
+    console.log('tokenizer built');
     kuromojiBuilderDeferred.resolve(tokenizer);
 });
 

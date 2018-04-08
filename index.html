@@ -8,6 +8,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!--<link rel="stylesheet" href="css/normalize.css">-->
     <!--<link rel="stylesheet" href="css/main.css">-->
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
 </head>
 
 <body class="bg-light">
@@ -77,6 +78,13 @@
                 <h3 class="text-center">Blood Type</h3>
                 <canvas id="bloodtypeChart" style="margin: 0 0 50px 0"></canvas>
             </div>
+
+            <div id="wordcloud-loader" class="loader" style="display: none;"></div>
+            <div id="wordcloud-result" class="result animate-bottom" style="display: none;">
+                <h3 class="text-center">Common Words</h3>
+                <div id="wordcloudChart"><a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a></div>
+
+            </div>
         </div>
     </div>
 </section>
@@ -84,6 +92,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>-->
 <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"-->
 <!--integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>-->
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
@@ -98,6 +107,8 @@
     ga('create', 'UA-XXXXX-Y', 'auto');
     ga('send', 'pageview')
 </script>
+<script src="kuromoji/build/kuromoji.js"></script>
+<script src="js/textMiner.js"></script>
 <script src="js/mycommon.js"></script>
 <script src="js/mycharts.js"></script>
 <script src="js/wikiParser.js"></script>
